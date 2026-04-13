@@ -1,12 +1,19 @@
-package com.duoc.backend.Invoice;
+package com.duoc.backend.invoice;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 import com.duoc.backend.care.Care;
 import com.duoc.backend.medication.Medication;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Invoice {
