@@ -32,7 +32,8 @@ public class InvoiceService {
                 .collect(Collectors.toList());
     }
 
-    public Invoice getInvoiceById(Long id) {
+    @SuppressWarnings("null")
+public Invoice getInvoiceById(Long id) {
         return invoiceRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Invoice not found"));
     }
@@ -46,16 +47,19 @@ public class InvoiceService {
                 ? Collections.emptyList()
                 : invoice.getCares();
 
+        @SuppressWarnings("null")
         List<Medication> validMedications = StreamSupport.stream(
                 medicationRepository.findAllById(
                         requestedMedications.stream().map(Medication::getId).collect(Collectors.toList()))
                         .spliterator(),
                 false).collect(Collectors.toList());
-        if (validMedications.size() != requestedMedications.size()) {
+        if (validMedications.size() == requestedMedications.size()) {
+        } else {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Some medications do not exist in the database");
         }
 
+        @SuppressWarnings("null")
         List<Care> validCares = StreamSupport.stream(
                 careRepository.findAllById(
                         requestedCares.stream().map(Care::getId).collect(Collectors.toList()))
@@ -80,7 +84,8 @@ public class InvoiceService {
         return invoiceRepository.save(invoice);
     }
 
-    public void deleteInvoice(Long id) {
+    @SuppressWarnings("null")
+public void deleteInvoice(Long id) {
         if (!invoiceRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Invoice not found");
         }
