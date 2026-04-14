@@ -1,5 +1,8 @@
 package com.duoc.backend.patient;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +12,9 @@ public class PatientService {
     @Autowired
     private PatientRepository patientRepository;
 
-    public Iterable<Patient> getAllPatients() {
-        return patientRepository.findAll();
+    public List<Patient> getAllPatients() {
+        return StreamSupport.stream(patientRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public Patient getPatientById(Long id) {

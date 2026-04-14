@@ -1,5 +1,8 @@
 package com.duoc.backend.appointment;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,8 +12,9 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    public Iterable<Appointment> getAllAppointments() {
-        return appointmentRepository.findAll();
+    public List<Appointment> getAllAppointments() {
+        return StreamSupport.stream(appointmentRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
     }
 
     public Appointment getAppointmentById(Long id) {
